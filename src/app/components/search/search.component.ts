@@ -1,28 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material/core';
-
-/** Error when invalid control is dirty, touched, or submitted. */
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { SearchService } from 'src/app/services/search.service';
+import { take } from 'rxjs/operators';
+import { IApiGetUsersRequest, IUser } from 'src/app/models';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent {
 
-  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+  @Input() per_page: number = 9;
+  @Input() page: number = 1;
+  @Output() onGetUsers = new EventEmitter();
+  loginFormControl = new FormControl('', [Validators.required]);
 
-  matcher = new MyErrorStateMatcher();
-  constructor() { }
+  constructor(private searchService: SearchService) { }
 
-  ngOnInit(): void {
+  makeRequest() {
+    console.log(this.loginFormControl.value);
+    this.searchService.getUsers(this.loginFormControl.value, this.page, this.per_page)
+      .pipe(take(1))
+      .subscribe((response: IApiGetUsersRequest) => this.onGetUsers.emit(response));
   }
 
 }

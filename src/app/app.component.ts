@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { IApiGetUsersRequest, IUser } from './models';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'scalio-demo';
+  apiResponse!: IApiGetUsersRequest;
+
+  onGetUsers(response: IApiGetUsersRequest){
+    this.apiResponse = response;
+  }
 }
