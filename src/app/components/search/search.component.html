@@ -1,19 +1,14 @@
-<form class="searchForm" [noValidate]="true">
+<form class="searchForm" (ngSubmit)="makeRequest()" [noValidate]="true">
     <div class="row">
         <mat-form-field appearance="fill">
             <mat-label>Login</mat-label>
-            <input class="searchInput" type="text" matInput [formControl]="loginFormControl" placeholder="Ex. John">
-            <mat-error *ngIf="!loginFormControl.hasError('required')">
-                Please enter login
-            </mat-error>
-            <mat-error *ngIf="loginFormControl.hasError('required')">
+            <input class="searchInput" type="text" matInput [formControl]="userFormControl" placeholder="Ex. John">
+            <mat-error *ngIf="userFormControl.hasError('required')">
                 Login is <strong>required</strong>
             </mat-error>
         </mat-form-field>
-        <button mat-flat-button class="searchBtn" color="primary" type="button" (click)="makeRequest()"
-            [disabled]="!loginFormControl.value">
-            Search
+        <button mat-flat-button class="searchBtn" color="primary" type="submit" [disabled]="!userFormControl.value">
+            Submit
         </button>
     </div>
-
 </form>

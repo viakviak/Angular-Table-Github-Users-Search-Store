@@ -1,46 +1,66 @@
-import { AfterViewInit, Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { IApiGetUsersRequest, IUser } from 'src/app/models';
+import { IUser } from 'src/app/models';
 
-import { merge, Observable, of as observableOf } from 'rxjs';
-import { catchError, map, startWith, switchMap } from 'rxjs/operators';
+import { SearchService } from 'src/app/services/search.service';
+import { BaseComponentOnDestroy } from 'src/app/epics/base-component-on-destroy';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.scss']
 })
-export class ResultsComponent implements OnChanges, AfterViewInit {
+export class ResultsComponent extends BaseComponentOnDestroy implements OnInit, AfterViewInit {
 
-  @Input() data!: IApiGetUsersRequest;
-  dataSource: MatTableDataSource<IUser>;
+  dataSource: MatTableDataSource<IUser> = new MatTableDataSource();
   displayedColumns: string[] = ['avatar', 'login', 'type'];
 
   resultsLength = 0;
   isLoadingResults = true;
-  isRateLimitReached = false;
 
-  // @ViewChild(MatPaginator) paginator!: MatPaginator;
+  overlayText: string = '';
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor() {
-    this.dataSource = new MatTableDataSource;
+  constructor(private searchService: SearchService) {
+    super();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes && changes.data && changes.data.currentValue) {
-      this.dataSource.data = changes.data.currentValue.items;
-      this.resultsLength = changes.data.currentValue.total_count;
-    }
+  ngOnInit() {
+    this.searchService.loading$
+      .pipe(takeUntil(this.isDestroyed$))
+      .subscribe((loading: boolean) => this.isLoadingResults = loading);
+
+    this.searchService.totalCount$
+      .pipe(takeUntil(this.isDestroyed$))
+      .subscribe((count: number) => this.resultsLength = count);
+
+    this.searchService.users$
+      .pipe(takeUntil(this.isDestroyed$))
+      .subscribe((users: IUser[]) => this.dataSource.data = users);
+
+    this.searchService.newSearch$
+      .pipe(takeUntil(this.isDestroyed$))
+      .subscribe((newSearch: boolean) => {
+        if (!!newSearch && this.paginator) {
+          this.paginator.firstPage();
+        }
+      });
+
+    this.searchService.overlayText$
+      .pipe(takeUntil(this.isDestroyed$))
+      .subscribe(txt => this.overlayText = txt);
   }
 
   ngAfterViewInit() {
-    // this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
-
-    merge(this.sort.sortChange)
-      .subscribe(console.log);
+    this.dataSource.sort = this.sort;
+    this.paginator.page
+      .pipe(takeUntil(this.isDestroyed$))
+      .subscribe((paginator) => this.searchService.moveToPage(++paginator.pageIndex));
   }
 
 }
