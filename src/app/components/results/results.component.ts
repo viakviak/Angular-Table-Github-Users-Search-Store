@@ -18,10 +18,9 @@ export class ResultsComponent extends BaseComponentOnDestroy implements OnInit, 
   dataSource: MatTableDataSource<IUser> = new MatTableDataSource();
   displayedColumns: string[] = ['avatar', 'login', 'type'];
 
-  resultsLength = 0;
-  isLoadingResults = true;
-
-  overlayText: string = '';
+  resultsLength!: number;
+  isLoadingResults!: boolean;
+  overlayText!: string;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
