@@ -1,6 +1,4 @@
-import { environment as baseEnv } from "./environment";
-
 export const environment = {
-  ...baseEnv,
+  apiBaseUrl: "https://api.github.com/",
   production: true
 };
