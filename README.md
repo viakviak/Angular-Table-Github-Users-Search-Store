@@ -1,2 +1,1 @@
-Search for github users and show them to a table.
-Uses Angular 13 and Angular Material.
+Search for Github users and show results in a table. Project Uses Angular 13 and Angular Material.
