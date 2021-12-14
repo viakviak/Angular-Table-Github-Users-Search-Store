@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "scalio-demo": {
+    "github-users-search": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/scalio-demo",
+            "outputPath": "dist/github-users-search",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -73,10 +73,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "scalio-demo:build:production"
+              "browserTarget": "github-users-search:build:production"
             },
             "development": {
-              "browserTarget": "scalio-demo:build:development"
+              "browserTarget": "github-users-search:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -84,7 +84,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "scalio-demo:build"
+            "browserTarget": "github-users-search:build"
           }
         },
         "test": {
@@ -109,5 +109,5 @@
       }
     }
   },
-  "defaultProject": "scalio-demo"
+  "defaultProject": "github-users-search"
 }

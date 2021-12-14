@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/scalio-demo",
+    "public": "dist/github-users-search",
     "ignore": [
       "firebase.json",
       "**/.*",
