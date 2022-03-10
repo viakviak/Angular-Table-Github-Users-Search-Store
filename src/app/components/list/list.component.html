@@ -1,7 +1,7 @@
 <div class="container">
-    <div class="overlay" *ngIf="isLoadingResults || overlayText?.length">
-        <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
-        <div class="overlay-text" *ngIf="!isLoadingResults && overlayText?.length">
+    <div class="overlay" *ngIf="isLoadingList || overlayText?.length">
+        <mat-spinner *ngIf="isLoadingList"></mat-spinner>
+        <div class="overlay-text" *ngIf="!isLoadingList && overlayText?.length">
             {{overlayText}}
         </div>
     </div>
@@ -29,7 +29,7 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
     </div>
-    <mat-paginator showFirstLastButtons [length]="resultsLength" [pageSize]="9"
-        aria-label="Select page of GitHub users results">
+    <mat-paginator showFirstLastButtons [length]="listLength" [pageSize]="9"
+        aria-label="Select page of GitHub users list">
     </mat-paginator>
 </div>

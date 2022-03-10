@@ -23,7 +23,7 @@ import { SearchService } from './services/search.service';
   declarations: [
     AppComponent,
     Components.SearchComponent,
-    Components.ResultsComponent
+    Components.ListComponent
   ],
   imports: [
     BrowserModule,

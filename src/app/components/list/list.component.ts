@@ -9,17 +9,17 @@ import { BaseComponentOnDestroy } from 'src/app/epics/base-component-on-destroy'
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-results',
-  templateUrl: './results.component.html',
-  styleUrls: ['./results.component.scss']
+  selector: 'app-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss']
 })
-export class ResultsComponent extends BaseComponentOnDestroy implements OnInit, AfterViewInit {
+export class ListComponent extends BaseComponentOnDestroy implements OnInit, AfterViewInit {
 
   dataSource: MatTableDataSource<IUser> = new MatTableDataSource();
   displayedColumns: string[] = ['avatar', 'login', 'type'];
 
-  resultsLength!: number;
-  isLoadingResults!: boolean;
+  listLength!: number;
+  isLoadingList!: boolean;
   overlayText!: string;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -32,11 +32,11 @@ export class ResultsComponent extends BaseComponentOnDestroy implements OnInit, 
   ngOnInit() {
     this.searchService.loading$
       .pipe(takeUntil(this.isDestroyed$))
-      .subscribe((loading: boolean) => this.isLoadingResults = loading);
+      .subscribe((loading: boolean) => this.isLoadingList = loading);
 
     this.searchService.totalCount$
       .pipe(takeUntil(this.isDestroyed$))
-      .subscribe((count: number) => this.resultsLength = count);
+      .subscribe((count: number) => this.listLength = count);
 
     this.searchService.users$
       .pipe(takeUntil(this.isDestroyed$))

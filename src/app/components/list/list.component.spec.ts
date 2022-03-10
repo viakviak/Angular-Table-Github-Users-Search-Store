@@ -9,16 +9,16 @@ import { Observable, of } from 'rxjs';
 import { IUser } from 'src/app/models';
 import { SearchService } from 'src/app/services/search.service';
 
-import { ResultsComponent } from './results.component';
+import { ListComponent } from './list.component';
 
-fdescribe('ResultsComponent', () => {
-  let component: ResultsComponent;
-  let fixture: ComponentFixture<ResultsComponent>;
+fdescribe('ListComponent', () => {
+  let component: ListComponent;
+  let fixture: ComponentFixture<ListComponent>;
   let searchService: SearchService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ResultsComponent],
+      declarations: [ListComponent],
       imports: [
         BrowserAnimationsModule,
         HttpClientTestingModule,
@@ -33,27 +33,27 @@ fdescribe('ResultsComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ResultsComponent);
+    fixture = TestBed.createComponent(ListComponent);
     searchService = TestBed.inject(SearchService);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create results component', () => {
+  it('should create list component', () => {
     expect(component).toBeTruthy();
   });
 
   it('should successfully subscribe to observables from search service on ngOnInit', () => {
     let users: IUser[] = [];
-    let resultsLength = 0;
-    let isLoadingResults = false;
-    let overlayText = 'No Results';
+    let listLength = 0;
+    let isLoadingList = false;
+    let overlayText = 'No List';
 
     fixture.detectChanges();
 
     expect(component.dataSource.data).toEqual(users);
-    expect(component.resultsLength).toEqual(resultsLength);
-    expect(component.isLoadingResults).toEqual(isLoadingResults);
+    expect(component.listLength).toEqual(listLength);
+    expect(component.isLoadingList).toEqual(isLoadingList);
     expect(component.overlayText).toEqual(overlayText);
   })
 });

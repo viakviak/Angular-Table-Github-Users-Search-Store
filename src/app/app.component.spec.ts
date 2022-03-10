@@ -33,7 +33,7 @@ fdescribe('AppComponent', () => {
       declarations: [
         AppComponent,
         Components.SearchComponent,
-        Components.ResultsComponent
+        Components.ListComponent
       ],
       imports: [
         BrowserModule,
@@ -69,9 +69,9 @@ fdescribe('AppComponent', () => {
     expect(componentNativeElement.querySelector('#heading')?.textContent).toContain('Search For Github Users');
   });
 
-  it('should have search and results component', () => {
+  it('should have search and list component', () => {
     fixture.detectChanges();
     expect(componentNativeElement.querySelector('app-search')).toBeTruthy();
-    expect(componentNativeElement.querySelector('app-results')).toBeTruthy();
+    expect(componentNativeElement.querySelector('app-list')).toBeTruthy();
   });
 });

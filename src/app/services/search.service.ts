@@ -24,7 +24,7 @@ export class SearchService {
   private usersSubject: BehaviorSubject<IUser[]> = new BehaviorSubject<IUser[]>([]);
   users$: Observable<IUser[]> = this.usersSubject.asObservable();
 
-  private overlayTextSubject: BehaviorSubject<string> = new BehaviorSubject<string>('No Results');
+  private overlayTextSubject: BehaviorSubject<string> = new BehaviorSubject<string>('No List');
   overlayText$: Observable<string> = this.overlayTextSubject.asObservable();
 
   constructor(private http: HttpClient) { }
@@ -49,7 +49,7 @@ export class SearchService {
             this.usersSubject.next(data.items);
             this.totalCountSubject.next(data.total_count);
             this.newSearchSubject.next(!page);
-            this.overlayTextSubject.next(data.items.length ? '' : 'No Results Found');
+            this.overlayTextSubject.next(data.items.length ? '' : 'No List Found');
           }
           this.loadingSubject.next(false)
         })

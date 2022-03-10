@@ -1,2 +1,2 @@
-export * from './results/results.component';
+export * from './list/list.component';
 export * from './search/search.component';
