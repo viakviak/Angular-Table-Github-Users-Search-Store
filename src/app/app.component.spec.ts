@@ -66,7 +66,7 @@ fdescribe('AppComponent', () => {
 
   it('should render main heading title', () => {
     fixture.detectChanges();
-    expect(componentNativeElement.querySelector('#heading')?.textContent).toContain('Search For Github Users');
+    expect(componentNativeElement.querySelector('#heading')?.textContent).toContain('User List');
   });
 
   it('should have search and list component', () => {
