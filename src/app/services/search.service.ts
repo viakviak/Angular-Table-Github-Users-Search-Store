@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { IApiGetUsersRequest, IUser } from '../models';
+import { ISearchResponse } from '../models/search.response';
 
 @Injectable()
 export class SearchService {
@@ -57,5 +58,14 @@ export class SearchService {
 
   moveToPage(page: number) {
     this.getUsers(this.currentQuery, page);
+  }
+
+  searchUsers(query: string, page?: number): Observable<ISearchResponse> {
+    return this.http
+      .get<IApiGetUsersRequest>(encodeURI(`${environment.apiBaseUrl}${this.reqPath}?q=${query}&page=${page}&per_page=9`))
+      .pipe(
+        map(response => <ISearchResponse>{users: response.items, totalCount: response.total_count, isListIncomplete: response.incomplete_list}),
+        catchError(error => of({error: `Search failed: ${error.message}`} as ISearchResponse))
+      )
   }
 }

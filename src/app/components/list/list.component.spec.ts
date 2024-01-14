@@ -11,7 +11,7 @@ import { SearchService } from 'src/app/services/search.service';
 
 import { ListComponent } from './list.component';
 
-fdescribe('ListComponent', () => {
+describe('ListComponent', () => {
   let component: ListComponent;
   let fixture: ComponentFixture<ListComponent>;
   let searchService: SearchService;
