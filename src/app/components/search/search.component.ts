@@ -13,7 +13,6 @@ export class SearchComponent {
   constructor(private searchService: SearchService) { }
 
   makeRequest() {
-    this.searchService.getUsers(this.userFormControl.value);
+    this.searchService.getUsers(this.userFormControl.value ?? '');
   }
-
 }
