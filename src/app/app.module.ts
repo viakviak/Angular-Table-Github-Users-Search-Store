@@ -25,7 +25,8 @@ import { EffectsModule } from '@ngrx/effects';
   declarations: [
     AppComponent,
     Components.SearchComponent,
-    Components.ListComponent
+    Components.ListComponent,
+    Components.GridComponent
   ],
   imports: [
     BrowserModule,
