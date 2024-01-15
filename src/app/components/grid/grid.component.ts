@@ -14,7 +14,7 @@ import { selectSearchResponse } from 'src/app/store/search/search.selectors';
 })
 export class GridComponent {
   private response$ = this.store.select(selectSearchResponse);
-  userPage$ = this.response$.pipe(map(response => <IViewUserGrid>{ users: new MatTableDataSource(response?.users), totalCount: response?.totalCount }));
+  userGrid$ = this.response$.pipe(map(response => <IViewUserGrid>{ users: new MatTableDataSource(response?.users), totalCount: response?.totalCount }));
   displayedColumns: string[] = ['avatar', 'login', 'type'];
 
   constructor(private store: Store<IStateApp>)
